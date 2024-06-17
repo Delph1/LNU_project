@@ -92,6 +92,7 @@ def send_random():
     finally:
        last_random_sent_ticks = time.ticks_ms()
 
+
 def control_curtains():
     xAxisValue = xAxisPin.read_u16()
     yAxisValue = yAxisPin.read_u16()
