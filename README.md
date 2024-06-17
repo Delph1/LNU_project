@@ -12,6 +12,8 @@ The Raspberry and sensors used for this project was purchased from [electrokit.c
  - [25 sensor kit package](electrokit.com/sensor-kit-25-moduler)
  - [Addon Kit (if you want to use LoraWan)](https://www.electrokit.com/lnu-addon)
 
+The university also has a repository with lots of code samples, which this projects has been based on: [IoT-LNU/Pico W](https://github.com/iot-lnu/pico-w/)
+
 ### Project descriptions
 
 Since the course only ran over five weeks during the summer I had limited time to complete the device. 
