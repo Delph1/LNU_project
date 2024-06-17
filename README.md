@@ -32,10 +32,23 @@ This is something I will have to complete after the course has completed.
 
 ### So what did I ACTUALLY do?
 
-I decided between a couple of different sensors, but decided to go with the light sensor first of all. 
+I decided between a couple of different sensors, but decided to go with the light sensor for the MVP (minimum viable product).
 
-...
+It should be noted though, that the light sensor that came with a 10k resistor on-board did not work with the sample code. It was confirmed by Nas (TA) so I had to use the more barebone solution with two two parallell resistors ([the second alternative](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P23_LDR_Photo_Resistor)).
+
+I also went with the [analog joystick](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P16_Joystick) to allow for manual inputs too. 
+I decided that controling the curtains made sense since I can do that in most rooms and currently they are set to a schedule, but sometimes schedules change on the fly.
 
 ### Easter egg. 
 
-I had to some kind of fun side thing too so I added a passive buzzer that allows for playing music (if you can call it that) on the Pico W. Inside Home Assistant that is an automation that checks if the button is pressed for too long, and thus increase the value of the sensor, it sends out an MQTT message called "XMAS", which makes the buzzer play a short version of "Jinglebells". It sounds horrible, but it gets the job done.
+I had to some kind of fun side thing too so I added a [passive buzzer](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P18_Active_Piezo_Buzzer) that allows for playing music (if you can call it that) on the Pico W. Inside Home Assistant that is an automation that checks if the button is pressed for too long, and thus increase the value of the sensor, it sends out an MQTT message called "XMAS", which makes the buzzer play a short version of "Jinglebells". It sounds horrible, but it gets the job done.
+
+## Todo later:
+
+ * Add temperature sensor
+ * Add humidity sensor
+ * Battery power the device
+ * Presence detection
+   * Write a bunch of automation code in Home Assistant 
+  
+And probably more things as I come up with new ideas.
