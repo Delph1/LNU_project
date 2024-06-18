@@ -79,6 +79,7 @@ MQTT_PORT      = "broker port, usually 1883 or 8883 with SSL enabled"
 Make sure you add the file to your .gitignore so you don't push it to your repository. 
 
 ![Picture of the gadget](images/PXL_20240618_121147509.MP~2.jpg?raw=true "The Gadget")
+*The gadget in its most basic form*
 
 ### Easter egg
 
