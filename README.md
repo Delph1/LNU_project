@@ -13,7 +13,7 @@ Andreas Galistel (ag22fi)
         - [Uh-oh, it's not responding anymore?!](#uh-oh-its-not-responding-anymore)
       - [IDE / Development environment](#ide--development-environment)
       - [Local server (Home Assistant)](#local-server-home-assistant)
-  - [Project descriptions](#project-descriptions)
+  - [Project descriptions and out of scope](#project-descriptions-and-out-of-scope)
     - [So what did I ACTUALLY do?](#so-what-did-i-actually-do)
       - [Pin setup](#pin-setup)
       - [Secret stuff](#secret-stuff)
@@ -27,17 +27,22 @@ Andreas Galistel (ag22fi)
       - [Gadget: Turn off lights](#gadget-turn-off-lights)
       - [Gadget: Turn on lights](#gadget-turn-on-lights)
   - [Time needed](#time-needed)
+  - [Visualisation:](#visualisation)
   - [Todo later:](#todo-later)
 
 
 ## Background
 
 ### Objective
- The objective of this course is to  build a personal gadget that would enable automation of my home on another level. It was inspired by the [Aqara Cube](https://www.aqara.com/us/product/cube/) and similar such "odd" devices that also works as a sort of remote control, but don't look or act like the usual kind of control device. 
+ The objective of this course is to build a personal gadget that would enable automation of my home on another level. It was inspired by the [Aqara Cube](https://www.aqara.com/us/product/cube/) and similar such "odd" devices that also works as a sort of remote control, but don't look or act like the usual kind of control device. 
 
- These devices usually require some form of manual input though, while my device is intended to use sensors and just react on the sensored values. I want to press as few buttons as possible. 
+ These devices usually require manual input though, while my device is intended to mainly use sensors and react on the sensored values. I want to press as few buttons as possible. but that option should be there if necessary. 
 
  The idea is to improve quality of life by further enabling automations that will adjust lights, curtains and give notifications based on the sensory data. However all of this is not possible within the short timeframe of this course.
+
+ The MVP (minimum viable product) was intended to use a light sensor and joystick. It will connect via WiFi to an MQTT server within Home Assistant. 
+
+ I managed to do a bit more than that though. I added a temperature and humidity sensor along with a speaker that is mainly used as an Easter egg for now, but hopefully I can use it for other type of notifications later on.   
 
 ### Hardware and software
 The gadget is built up on the [Raspberry Pico W](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html). It's a single-board microcontroller with loads of compatible sensors and other components, and it's easy to program with [MicroPython](https://micropython.org/), which is essentially Python, but optimized for running on a microcontroller with some specific libraries added (e.g. machine).
@@ -65,7 +70,7 @@ List of material for this project:
 
 You need to update the firmware of the Pico W to enable support for MicroPython, but don't worry. It's really easy. 
 
-Hold down the BOOTSEL button on the controller when you plug in the USB cable into the computer and it will load as a mass storage device, which means you can browse to it using your file explorer (e.g. Explorer on Windows, Finder on Mac.). Release the button if you're still holding it down.
+Hold down the BOOTSEL button on the controller when you plug in the USB cable into the computer and it will load as a mass storage device, which means you can browse to it using your file explorer (e.g. Explorer on Windows, Finder on Mac). Release the button if you're still holding it down.
 
 In the root folder of the device you simply drop in the firmware that can be downloaded from the [micropython website](https://micropython.org/download/rp2-pico-w). 
 
@@ -81,11 +86,13 @@ Don't worry, the name is scarier than it has to be. It just resets the device. Y
 
 #### IDE / Development environment
 
-I ran Windows 11 and used [Visual Studio Code](https://code.visualstudio.com/) with the Pymakr Extension to program the device and transfer code to the device. USB-cable is included in the starter kit from Electrokit. 
+I ran Windows 11 and used [Visual Studio Code](https://code.visualstudio.com/) with the Pymakr Extension to program the device and transfer code to the device. USB-cable is included in the starter kit from Electrokit. If you're using your own cable, make sure it has a data connection and is not just a charging cable. 
 
 You might want to consider getting the official Python and Pylance extensions too. They help with writing code, but beware that they are not perfect for MicroPython and will give you faulty errors on e.g. the machine library, which is normally not part of Python. 
 
-You also need to install Node.js too to make it work: [Node.js (LTS)](https://nodejs.org/en/)
+I also created this repository on GitHub where I can track code changes and have an online backup of my work. 
+
+You also need to install Node.js too to make it all work: [Node.js (LTS)](https://nodejs.org/en/)
 
 #### Local server (Home Assistant)
 
@@ -97,7 +104,7 @@ I have been running it for many years now and if you don't know what Home Assist
 
 There is an [online demo you can try](https://demo.home-assistant.io/#/lovelace/home).
 
-## Project descriptions
+## Project descriptions and out of scope 
 
 Since the course only ran over five weeks during the summer I had limited time to complete the device. 
 
@@ -117,7 +124,7 @@ This is something I will have to do later on.
 
 I decided between a couple of different sensors, but decided to go with the light sensor for the MVP (minimum viable product) and when I got that working I added on the temperature and humidity sensor. I live nextdoor to a swamp so humidity can be rather excruciating during the summer and there is basically no trees offering shadow to our house. Plenty in the swamp though.  
 
-It should be noted though, that the light sensor that came with a 10k resistor on-board did not work with the sample code. It was confirmed by a teacher's assistant so I had to use the more barebone solution with two two parallell resistors ([the second alternative](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P23_LDR_Photo_Resistor)).
+It should be noted though, that the light sensor that came with a 10k resistor on-board did not work with the sample code. It was confirmed by a teacher's assistant so I had to use the more barebone solution with two two parallell 5k resistors instead ([the second alternative](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P23_LDR_Photo_Resistor)).
 
 I also went with the [analog joystick](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P16_Joystick) to allow for manual inputs. 
 I decided that controling the curtains made sense since I can do that in most rooms and currently they are set to a schedule, but sometimes schedules change on the fly as the sun decide to go full supernova and heat up the Earth like a South Carolina BBQ.
@@ -128,8 +135,7 @@ The code is well documented (in my humble opinion) and should be easy for anyone
 
 The pin setup I decided to go with are as follows (from main.py). The Pico W has limited amount of analog sensors so you need to plan your pin usage accordingly. 
 
-```
-
+```python
 # Joystick
 xAxisPin = ADC(Pin(28))
 yAxisPin = ADC(Pin(27))
@@ -145,13 +151,11 @@ dhtSensor = dht.DHT11(machine.Pin(19))
 # buzzer = PWM(Pin(22))
 ```
 
-![Pin diagram](images/Connections%20overview.png?raw=true "Pin diagram")
-*Pin diagram*
+![Project pin diagram](images/Connections%20overview.png?raw=true "Project pin diagram")
+*Project pin diagram*
 
 
-Do note that the pin numbers here are the GPIO pin numbers, not the actual pin on the Pico W. You need to look at the [pin diagram](https://datasheets.raspberrypi.com/picow/PicoW-A4-Pinout.pdf) to see which physical pin this corresponds to. 
-
-In my case it was this as of the Summer of 2024, but this could change if the Pico W gets an update or revision in the future:
+Make sure to reference the [pin diagram for the Pico W](https://datasheets.raspberrypi.com/picow/PicoW-A4-Pinout.pdf) to make sure this matches with your hardware. Revisions do happen, although seldom with Raspberry products. 
 
 
 | GPIO pin | Physical pin | Device       |
@@ -169,7 +173,7 @@ What is not in the repository is the keys.py file that is supposed to be in the 
 
 The content of the keys.py file looks something like this:
 
-```
+```python
 WIFI_SSID      = "name of your 2.4GHz WIFI"
 WIFI_PASS      = "password to your 2.4GHz WiFi"
 
@@ -186,7 +190,7 @@ Make sure you add the file to your .gitignore so you don't push it to your repos
 
 ### Easter egg
 
-I had to some kind of fun side thing too so I added a [passive buzzer](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P18_Active_Piezo_Buzzer) that allows for playing music (if you can call it that) on the Pico W. Inside Home Assistant that is an automation that checks if the button is pressed for too long, and thus increase the value of the sensor, it sends out an MQTT message called "XMAS", which makes the buzzer play a short version of "Jinglebells". It sounds horrible, but it gets the job done.
+Since I had time I had to add some kind of fun side thing too so I added a [passive buzzer](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P18_Active_Piezo_Buzzer) that allows for playing music (if you can call it that) on the Pico W. Inside Home Assistant there is an automation that checks if the button is pressed for too long, and thus increase the value of the sensor, it then sends out an MQTT message called "XMAS", which makes the buzzer play a short version of "Jinglebells". It sounds horrible, but it gets the job done as the user will most likely be tempted to release the button. 
 
 ## Home Assistant code
 
@@ -195,7 +199,7 @@ I had to some kind of fun side thing too so I added a [passive buzzer](https://g
 This is how I set up my MQTT sensors in Home Assistant. I used the default Mosquitto broker add-on found in Home Assistant. It requires minimal settings to set up and I will refer to the [official documentation](https://www.home-assistant.io/integrations/mqtt/) for how to set it up.
 
 File: mqtt.yaml
-``` 
+```yaml
 sensor:
   - name: "Gadget: Random"
     state_topic: "homeassistant/gadget/random"
@@ -227,7 +231,7 @@ When the gadget gets presence control the automations will be updated to handle 
 
 #### Gadget: when button is pressed
 
-```
+```yaml
 alias: "Gadget: button pressed"
 description: ""
 trigger:
@@ -241,12 +245,19 @@ action:
     data: {}
     target:
       entity_id: counter.gadget_button_press
+  - service: mqtt.publish
+    metadata: {}
+    data:
+      qos: "2"
+      retain: false
+      topic: homeassistant/gadget
+      payload: XMAS
 mode: single
 ```
 
 
 #### Gadget: close curtain
-```
+```yaml
 alias: "Gadget: Close curtain"
 description: ""
 trigger:
@@ -263,7 +274,7 @@ action:
 mode: single
 ```
 #### Gadget: open curtain
-```
+```yaml
 alias: "Gadget: Open curtain"
 description: ""
 trigger:
@@ -277,11 +288,10 @@ action:
     target:
       entity_id:
         - cover.flush_shutter_dc_2
-    data: {}
 mode: single
 ```
 #### Gadget: Turn off lights
-```
+```yaml
 alias: "Gadget: Turn off lights"
 description: ""
 trigger:
@@ -292,14 +302,12 @@ trigger:
 condition: []
 action:
   - service: light.turn_off
-    metadata: {}
-    data: {}
     target:
       entity_id: light.biblioteket_spots
 mode: single
 ```
 #### Gadget: Turn on lights
-```
+```yaml
 alias: "Gadget: Turn on light"
 description: ""
 trigger:
@@ -310,23 +318,73 @@ trigger:
 condition: []
 action:
   - service: light.turn_on
-    data: {}
     target:
       entity_id: light.biblioteket_spots
 mode: single
 ```
 ## Time needed
 
-How much experience you have with Python, MQTT and Home Assistant plays a big part, but even with limited experience you should be able to build this device relatively fast. 
+How much experience you have with Python, MQTT and Home Assistant plays a big part, but even with limited experience you should be able to build the device itself relatively fast. 
 
-If you're some experience, to complete the MVP (minimum viable product) with just the light sensor and WiFi setup you will need a couple of hours. 
+If you're somewhat experienced, to complete the MVP (minimum viable product) with just the light sensor and WiFi setup you will need a couple of hours at most. 
 
+1. If you have Home Assistant up and running already:
+   
+Setting up MQTT in Home Assistant is done in seconds. Copy my code above for the sensors, reload the yaml configuration and they should pop up right away in Home Assistant. For the regular sensors they should have values right away. The button sensor will update when you ... press the button. 
+
+2. Installing Home Assistant
+   
 If you are not already running [Home Assistant](https://www.home-assistant.io/) that in itself can be a big leap. It is however the most potent, secure and most of all private home automation platform available. It is well worth trying out. 
+
+You can install Home Assistant on a Raspberry Pi, but also an Intel Nuc or as a container in Proxmox or on a NAS. The core is the same, but you get slightly different feature on top of that. 
+The Raspberry Pi solution is the most complete one and easiest to get started with.   
+
+There are plug-n-play solutions too. Check out the installation guide on the official website: [Get started with Home Assistant](https://www.home-assistant.io/installation/)
+
+## Visualisation:
+
+I laborated with both InfluxDB and Grafana. They are both available as addons in Home Assistant, which means they install with the push of a button and you are up and running in a minute or so. 
+
+The InfluxDB can be a bit finnicky though and I had to force include my sensors to get them to show up, as shown below.
+
+file: configuration.yaml
+```yaml
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: <your password>
+  max_retries: 3
+  default_measurement: state
+  include:
+    entities:
+      - sensor.gadget_random
+      - sensor.gadget_curtains
+      - sensor.gadget_light
+      - sensor.gadget_humidity
+      - counter.gadget_button_press
+```
+
+Since Grafana connects to InfluxDB any issues with InfluxDB transfers over to Grafana. 
+
+I finally decided that it would be less complex and I would achieve pretty much the same end result, if not better, by just creating a new dashboard in Home Assistant and use some custom graph cards. Specifically I used the [Apex Graph card](https://github.com/RomRider/apexcharts-card) by RomRider.
+
+Screenshots from different solutions I tried out to visualize the sensor data:
+
+![InfluxDB Screenshot](images/Skärmbild%202024-06-19%20193205.png?raw=true "InfluxDB screenshot")
+*InfluxDB screenshot*
+
+![Grafana Screenshot](images/Skärmbild%202024-06-19%20193349.png?raw=true "Grafana screenshot")
+*Grafana screenshot*
+
+![Home Assistant Dashboard](images/Skärmbild%202024-06-19%20192531.png "Home Assistant Dashboard")
+*Home Assistant Dashboard*
 
 ## Todo later:
 
  * Battery power the device
  * Presence detection
-   * Write a bunch of automation code in Home Assistant 
+   * Write a bunch of automation code in Home Assistant and learn to use variables in automations so I don't have to write one per room...
   
 And probably more things as I come up with new ideas.
