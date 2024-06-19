@@ -145,7 +145,9 @@ dhtSensor = dht.DHT11(machine.Pin(19))
 # buzzer = PWM(Pin(22))
 ```
 
-![Pin diagram](images/Connections overview.png?raw=true "Pin diagram")
+![Pin diagram](images/Connections%20overview.png?raw=true "Pin diagram")
+*Pin diagram*
+
 
 Do note that the pin numbers here are the GPIO pin numbers, not the actual pin on the Pico W. You need to look at the [pin diagram](https://datasheets.raspberrypi.com/picow/PicoW-A4-Pinout.pdf) to see which physical pin this corresponds to. 
 
