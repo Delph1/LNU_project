@@ -135,13 +135,13 @@ def control_curtains():
         action = "up"
 #    if yAxisValue <= 600:
 #        yAxisStatus = "east"
-#        action = "second up"
+#        action = "right"
 #    elif yAxisValue >= 60000:
 #        yAxisStatus = "west"
-#        action = "second down"
+#        action = "left"
     if buttonValue == 0:
         buttonStatus = "pressed"
-        action = "reset"
+        action = "button_pressed"
     
     if action != "":
         #print("xAxis value is {} toward {}\nyAxis value is {} toward {}\nButton is {}\n".format(xAxisValue, xAxisStatus, yAxisValue, yAxisStatus, buttonStatus))
