@@ -6,7 +6,7 @@ from lib.keys import *        # Secrets
 from music import *           # imports the song stuff
 import ubinascii              # Conversions between binary data and various encodings
 import random                 # Random number generator
-from mqtt import MQTTClient   # For use of MQTT protocol to talk to Adafruit IO
+from mqtt import MQTTClient   # For use of MQTT protocol
 import dht                    # For the DHT temp and humidity sensor
 
 # BEGIN SETTINGS

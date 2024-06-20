@@ -12,15 +12,15 @@ Andreas Galistel (ag22fi)
     - [Hardware and software](#hardware-and-software)
       - [Hardware](#hardware)
       - [Easter egg](#easter-egg)
-    - [Preparing the Pico W](#preparing-the-pico-w)
+    - [Preparing the Pico WH](#preparing-the-pico-wh)
         - [Uh-oh, it's not responding anymore?!](#uh-oh-its-not-responding-anymore)
       - [IDE / Development environment](#ide--development-environment)
       - [Network and procols](#network-and-procols)
       - [Local server (Home Assistant)](#local-server-home-assistant)
-    - [Wiring up the Pico W](#wiring-up-the-pico-w)
+    - [Wiring up the Pico WH](#wiring-up-the-pico-wh)
     - [Power consumption](#power-consumption)
-  - [Pico W code](#pico-w-code)
-    - [Code samples](#code-samples)
+  - [Pico WH code](#pico-wh-code)
+    - [Code](#code)
     - [Full code](#full-code)
   - [Home Assistant code](#home-assistant-code)
     - [MQTT sensors in Home Assistant](#mqtt-sensors-in-home-assistant)
@@ -88,26 +88,26 @@ There are plug-n-play solutions too. Check out the installation guide on the off
 
 The gadget is built up on the [Raspberry Pico W](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html). It's a single-board microcontroller with loads of compatible sensors and other components, and it's easy to program with [MicroPython](https://micropython.org/), which is essentially Python, but optimized for running on a microcontroller with some specific libraries added (e.g. machine).
 
-The Raspberry Pico W and sensors used for this project was purchased from [electrokit.com](https://www.electrokit.com). They even have course specific kits you can buy that works well with the course.
+The Raspberry Pico WH and sensors used for this project was purchased from [electrokit.com](https://www.electrokit.com). They even have course specific kits you can buy that works well with the course.
 
- - [LNU Starter kit](https://www.electrokit.com/lnu-starter)
- - [25 sensor kit package](electrokit.com/sensor-kit-25-moduler)
- - [Addon Kit (if you want to use LoraWan)](https://www.electrokit.com/lnu-addon)
+ - [LNU Starter kit](https://www.electrokit.com/lnu-starter) - 399 SEK
+ - [25 sensor kit package](electrokit.com/sensor-kit-25-moduler) - 299 SEK
+ - [Addon Kit (if you want to use LoraWan)](https://www.electrokit.com/lnu-addon) - 349 SEK
 
 The university also has a repository with lots of code samples, which this projects has been based on: [IoT-LNU/Pico W](https://github.com/iot-lnu/pico-w/)
 
-You can build pretty much any kind of smart device with these sensors. Your imagination sets the limits. 
+You can build pretty much any kind of smart device with these sensors. Your imagination sets the limits. You can buy the sensors separately too. I've added the cost of the individual sensors below.
 
 #### Hardware
-List of material for this project:
+List of material for this project below. Click the hardware name to get the specifications.
 
-| Hardware | Purpose |
-|------------------|---------------|
-| Raspberry Pico W | Main hardware |
-| Light Dependent Resistor | Measures level of light |
-| Joystick | Manual input |
-| Passive buzzer | Play tunes |
-| DHT sensor | Measure temperature and humidity |
+| Hardware | Purpose | Price |
+|------------------|---------------|-|
+| [Raspberry Pico WH](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html) | Main hardware | 109 SEK |
+| [Light Dependent Resistor](https://www.electrokit.com/upload/product/40850/40850001/40850001.pdf) | Measures level of light | 8 SEK |
+| [Joystick](https://www.electrokit.com/upload/product/41015/41015703/41015703_-_Analog_Joystick.pdf) | Manual input | 29 SEK |
+| [Passive buzzer](https://www.electrokit.com/upload/product/41015/41015714/Passive_Piezo_Buzzer.pdf) | Play tunes | 36 SEK |
+| [DHT sensor](https://www.electrokit.com/upload/product/41016/41016231/DHT11.pdf) | Measure temperature and humidity | 39 SEK |
 
 It should be noted that the light sensor that came with a 10k resistor on-board did not work with the sample code. It was confirmed by a teacher's assistant so I decided to use the more barebone solution with two two parallell 5k resistors instead ([the second alternative](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P23_LDR_Photo_Resistor)). 
 
@@ -116,11 +116,11 @@ I decided that controling the curtains made sense since I can do that in most ro
 
 #### Easter egg
 
-Since I had time I had to add some kind of fun side thing too so I added a [passive buzzer](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P18_Active_Piezo_Buzzer) that allows for playing music (if you can call it that) on the Pico W. Inside Home Assistant there is an automation that checks if the button is pressed for too long, and thus increase the value of the sensor, it then sends out an MQTT message called "XMAS", which makes the buzzer play a short version of "Jinglebells". It sounds horrible, but it gets the job done as the user will most likely be tempted to release the button. 
+Since I had time I had to add some kind of fun side thing too so I added a [passive buzzer](https://github.com/iot-lnu/pico-w/tree/main/sensor-examples/P18_Active_Piezo_Buzzer) that allows for playing music (if you can call it that) on the Pico WH. Inside Home Assistant there is an automation that checks if the button is pressed for too long, and thus increase the value of the sensor, it then sends out an MQTT message called "XMAS", which makes the buzzer play a short version of "Jinglebells". It sounds horrible, but it gets the job done as the user will most likely be tempted to release the button. 
 
-### Preparing the Pico W
+### Preparing the Pico WH
 
-You need to update the firmware of the Pico W to enable support for MicroPython, but don't worry. It's really easy. 
+You need to update the firmware of the Pico WH to enable support for MicroPython, but don't worry. It's really easy. 
 
 Hold down the BOOTSEL button on the controller when you plug in the USB cable into the computer and it will load as a mass storage device, which means you can browse to it using your file explorer (e.g. Explorer on Windows, Finder on Mac). Release the button if you're still holding it down.
 
@@ -160,9 +160,9 @@ I have been running it for many years now and if you don't know what Home Assist
 
 There is an [online demo you can try](https://demo.home-assistant.io/#/lovelace/home).
 
-### Wiring up the Pico W
+### Wiring up the Pico WH
 
-The pin setup I decided to go with are as follows (set up in main.py). The Pico W has limited amount of analog pins so you need to plan your pin usage accordingly. 
+The pin setup I decided to go with are as follows (set up in main.py). The Pico WH has limited amount of analog pins so you need to plan your pin usage accordingly. 
 
 ```python
 # Joystick
@@ -203,7 +203,7 @@ I've been able to locate these figures for the sensors I am using
 
 | Component	| Current |
 |-|-|
-| Pico W	| 43 mA| 
+| Pico WH	| 43 mA| 
 | DHT11	| 1.5 mA |
 | LDR | ~2 mA |
 | Buzzer | <30mA |
@@ -211,13 +211,13 @@ I've been able to locate these figures for the sensors I am using
 
 Since I have an ambition of making this a moveable gadget I need to make it battery-powered. A battery pack or power bank will solve the power source. 
 
-I was unable to find the current draw of the joystick, but since it will rarely be used I choose to omit that. The buzzer has a peak consumption of 30mA, which is almsost as much as the Pico W, will also rarely be used. 
+I was unable to find the current draw of the joystick, but since it will rarely be used I choose to omit that. The buzzer has a peak consumption of 30mA, which is almsost as much as the Pico WH, will also rarely be used. 
 
 I will instead focus on the "always on" sensors. That gives us a current draw of 46.5 mA, which is then true for most of the time, but not all. 
 
 Worst case scenario it will nearly double that of just under 80 mA. 
 
-A Pico W can be powered by two AA batteries. These have 2500 mAh of energy on average.  
+A Pico WH can be powered by two AA batteries. These have 2500 mAh of energy on average.  
 
 That means I could run the gadget on two batteries for: 5000 /46.5 ~ 107.5 hours , or 4.5 days. Not great. 
 
@@ -225,7 +225,7 @@ In practice it will be less as I will use the joystick on occassion and trigger 
 
 A recharge or battery change ever four days seems like a lot, but that seems to be where we are at for now. 
 
-## Pico W code
+## Pico WH code
 
 Below I have shared a couple of code samples that are key to the project. If you want the full code you can check the files at the top of the page or scroll a bit further and you can view the content there. 
 
@@ -235,7 +235,22 @@ https://github.com/iot-lnu/pico-w/tree/main/network-examples/N2_WiFi_MQTT_Webhoo
 WiFi code is based on this repository:
 https://github.com/iot-lnu/pico-w/tree/main/network-examples/N1_WiFi_Connection
 
-### Code samples
+### Code
+
+These are the libraries I used in this project:
+
+```python
+import micropython            # Needed to run any MicroPython code
+import machine                # Interfaces with hardware components
+from machine import Pin, ADC  # Define pin and ADC
+import time                   # Allows use of time.sleep() for delays
+from lib.keys import *        # Secrets
+from music import *           # imports the song stuff
+import ubinascii              # Conversions between binary data and various encodings
+import random                 # Random number generator
+from mqtt import MQTTClient   # For use of MQTT protocol
+import dht                    # For the DHT temp and humidity sensor
+```
 
 Here is the code that connects to the MQTT server and then runs a loop in which we can both receive and send messages.
 
@@ -276,7 +291,7 @@ def sub_cb(topic, msg):                         # sub_cb means "callback subrout
 
 ```
 
-Below is a portion of the code that sends messages to the MQTT server. The light resistor readings are read from the Pico W and sent to the MQTT server. 
+Below is a portion of the code that sends messages to the MQTT server. The light resistor readings are read from the Pico WH and sent to the MQTT server. 
 
 The code looks about the same for all sensors, and the joystick. I should try to refactor the code later to make it more efficient. 
 
@@ -422,7 +437,7 @@ import dht                    # For the DHT temp and humidity sensor
 # These need to be change to suit your environment
 RANDOMS_INTERVAL = 20000    # milliseconds
 last_random_sent_ticks = 0  # milliseconds
-led = Pin("LED", Pin.OUT)   # led pin initialization for Raspberry Pi Pico W
+led = Pin("LED", Pin.OUT)   # led pin initialization for Raspberry Pi Pico WH
 
 # Adafruit IO (AIO) configuration modified to work with local Home Assistant Mosquitto Broker
 AIO_SERVER        = MQTT_BROKER
@@ -1074,7 +1089,11 @@ mode: single
 
 I laborated with both InfluxDB and Grafana. They are both available as addons in Home Assistant, which means they install with the push of a button and you are up and running in a minute or so. 
 
-The InfluxDB can be a bit finnicky though and I had to force include my sensors to get them to show up, as shown below.
+InfluxDB is a time series database that is perfect for storing sensor data, while Grafana is a great tool for creating really good looking graphs. They do come with a bit of a threshold though, but if you are bit comfortable with SQL commands it shouldn't be a problem. 
+
+However, I found the InfluxDB to be a bit finnicky and I had to force include my sensors in the configuration file to get them to show up, as shown below, and even then it would take time before any data for the sensor actually showed up. 
+
+InfluxDB has its own built-in visualisation tools that you can use, but they are not as pretty as Grafana.  
 
 file: configuration.yaml
 ```yaml
@@ -1095,7 +1114,7 @@ influxdb:
       - counter.gadget_button_press
 ```
 
-Since Grafana connects to InfluxDB any issues with InfluxDB transfers over to Grafana. I experienced big delays with data appearing in InfluxDB from Home Assistant and overall it was a bit of a pain to work with sensor state changes to be honest, and not just regular measurements. 
+Since Grafana connects to InfluxDB any issues with InfluxDB transfers over to Grafana sadly. I experienced big delays with data appearing in InfluxDB from Home Assistant and overall it was a bit of a pain to work with sensor state changes to be honest, and not just regular measurements. 
 
 I finally decided that it would be less complex and I would achieve pretty much the same end result, if not better, by just creating a new dashboard in Home Assistant and use some custom graph cards. Specifically I used the [Apex Graph card](https://github.com/RomRider/apexcharts-card) by RomRider.
 
