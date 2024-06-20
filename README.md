@@ -15,8 +15,10 @@ Andreas Galistel (ag22fi)
     - [Preparing the Pico W](#preparing-the-pico-w)
         - [Uh-oh, it's not responding anymore?!](#uh-oh-its-not-responding-anymore)
       - [IDE / Development environment](#ide--development-environment)
+      - [Network and procols](#network-and-procols)
       - [Local server (Home Assistant)](#local-server-home-assistant)
     - [Wiring up the Pico W](#wiring-up-the-pico-w)
+    - [Power consumption](#power-consumption)
   - [Pico W code](#pico-w-code)
     - [Code samples](#code-samples)
     - [Full code](#full-code)
@@ -34,7 +36,7 @@ Andreas Galistel (ag22fi)
 
 ## Project description
 
-Since the course only ran over five weeks during the summer I had limited time to complete the device. 
+Since the course only ran over five weeks during the summer I had limited time to produce a product to showcase. 
 
 My objective for the finished device was this:
 
@@ -48,7 +50,7 @@ It was inspired by the [Aqara Cube](https://www.aqara.com/us/product/cube/) and 
 
  The MVP (minimum viable product) was intended to use a light sensor and joystick. It will connect via WiFi to an MQTT server within Home Assistant. 
 
-I live nextdoor to a swamp so humidity can be rather excruciating during the Summer and there is basically no trees offering shadow to our house. Plenty in the swamp though, along with one or two mosquittos.  
+I live nextdoor to a swamp so humidity can be rather excruciating during the Summer and there are basically no trees offering shadow to our house. Plenty in the swamp though, along with one or two mosquittos.  
 
 ### Out of scope for course, but coming in the future
 
@@ -62,9 +64,11 @@ E.g. in a bedroom it would allow me to control the bedroom curtains and start pl
 
 ## Time needed
 
-How much experience you have with Python, MQTT and Home Assistant plays a big part, but even with limited experience you should be able to build the device itself relatively fast. 
+How much experience you have with Python, MQTT (Message Queuing Telemetry Transport) and Home Assistant plays a big part, but even with limited experience you should be able to build the device itself relatively fast. 
 
-If you're somewhat experienced, to complete the MVP (minimum viable product) with just the light sensor and WiFi setup you will need a couple of hours at most. 
+If you're somewhat experienced, to complete the MVP (minimum viable product) with just the light sensor and WiFi setup you will need a couple of hours at most.
+
+If you need to install an IDE and get up and running with the rest of the requirements you probably need a few days if you really want to understand what you're doing. 
 
 1. If you have Home Assistant up and running already:
    
@@ -72,7 +76,7 @@ Setting up MQTT in Home Assistant is done in seconds. Copy my code above for the
 
 2. Installing Home Assistant
    
-If you are not already running [Home Assistant](https://www.home-assistant.io/) that in itself can be a big leap. It is however the most potent, secure and most of all private home automation platform available. It is well worth trying out. 
+If you are not already running [Home Assistant](https://www.home-assistant.io/) that in itself can be a big leap and take anything from an hour to several days to get it set up just how you want it. The possibilities are limited by your imagination. It is however the most potent, secure and most of all private home automation platform available. It is well worth trying out. 
 
 You can install Home Assistant on a Raspberry Pi, but also an Intel Nuc or as a container in Proxmox or on a NAS. The core is the same, but you get slightly different feature on top of that. 
 The Raspberry Pi solution is the most complete one and easiest to get started with.   
@@ -141,6 +145,12 @@ I created this repository on GitHub where I can track code changes and have an o
 
 You also need to install Node.js too to make it all work: [Node.js (LTS)](https://nodejs.org/en/)
 
+#### Network and procols
+
+Since the gadget is supposed to operate within my own home I decided that WiFi and MQTT will be optimal. They are easily available, secure and reliable. 
+
+The drawback of WiFi is that it is power hungry. It would be interesting to try out BLE (Bluetooth Low Energy) later on, but that is out of my comfort zone at the moment. 
+
 #### Local server (Home Assistant)
 
 I currently have a [Home Assistant](https://www.home-assistant.io/) setup in my home that runs on an Intel NUC and control everything from curtains to lights and speakers, along with monitoring my solar panels, heatpump and other things related to my home. 
@@ -188,6 +198,34 @@ Make sure to reference the [official pin diagram for the Pico W](https://datashe
 
 ![Picture of the gadget](images/PXL_20240618_121147509.MP~2.jpg?raw=true "The Gadget")
 *The gadget in its most basic form*
+
+### Power consumption
+
+I've been able to locate these figures for the sensors I am using
+
+| Component	| Current |
+|-|-|
+| Pico W	| 43 mA| 
+| DHT11	| 1.5 mA |
+| LDR | ~2 mA |
+| Buzzer | <30mA |
+| Joystick | - |
+
+Since I have an ambition of making this a moveable gadget I need to make it battery-powered. A battery pack or power bank will solve the power source. 
+
+I was unable to find the current draw of the joystick, but since it will rarely be used I choose to omit that. The buzzer has a peak consumption of 30mA, which is almsost as much as the Pico W, will also rarely be used. 
+
+I will instead focus on the "always on" sensors. That gives us a current draw of 46.5 mA, which is then true for most of the time, but not all. 
+
+Worst case scenario it will nearly double that of just under 80 mA. 
+
+A Pico W can be powered by two AA batteries. These have 2500 mAh of energy on average.  
+
+That means I could run the gadget on two batteries for: 5000 /46.5 ~ 107.5 hours , or 4.5 days. Not great. 
+
+In practice it will be less as I will use the joystick on occassion and trigger the Easter egg once in a while. 
+
+A recharge or battery change ever four days seems like a lot, but that seems to be where we are at for now. 
 
 ## Pico W code
 
