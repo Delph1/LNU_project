@@ -1,3 +1,5 @@
+#Original code: https://github.com/iot-lnu/pico-w/tree/main/network-examples/N1_WiFi_Connection
+
 import keys
 import network
 from time import sleep

@@ -27,6 +27,3 @@ try:
     http_get()
 except (Exception, KeyboardInterrupt) as err:
     print("No Internet", err)
-
-# WiFi Disconnect
-# wifiConnection.disconnect().

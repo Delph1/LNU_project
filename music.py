@@ -1,3 +1,5 @@
+#original code: https://github.com/iot-lnu/pico-w/blob/main/sensor-examples/P19_Passive_Piezo_Buzzer
+
 from machine import Pin, PWM
 from time import sleep
 

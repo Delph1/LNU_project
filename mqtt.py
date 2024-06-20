@@ -1,3 +1,5 @@
+#Original code: https://github.com/iot-lnu/pico-w/tree/main/network-examples/N2_WiFi_MQTT_Webhook_Adafruit
+
 import usocket as socket
 import ustruct as struct
 from ubinascii import hexlify

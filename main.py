@@ -46,15 +46,13 @@ dhtSensor = dht.DHT11(machine.Pin(19))
 
 # END SETTINGS
 
-# Callback Function to respond to messages from Adafruit IO
+# Callback Function to respond to messages from the MQTT server
 def sub_cb(topic, msg):                         # sub_cb means "callback subroutine"
     print((topic, msg))                         # Outputs the message that was received. Debugging use.
-    if  msg == b"XMAS":                         # If topic is XMAS and message says "YES" ...
+    if  msg == b"XMAS":                         # If message says "XMAS" 
         playsong(song)                          # ... then play Jingle Bells
-        led.on()
     else:                                       # If any other message is received ...
-        print("Unknown message")                # ... do nothing but output that it happened.
-        led.off()
+        print(msg)                # ... do nothing but output that it happened.
 
 # Function to generate a random number between 0 and the upper_bound
 def random_integer(upper_bound):
@@ -64,7 +62,7 @@ def random_integer(upper_bound):
 # Random function from sample code has been left in as an function POC
 
 def send():
-    #Random function
+    #Random function from the MQTT sample code. Used as a canary and can be removed. 
 
     global last_random_sent_ticks
     global RANDOMS_INTERVAL
@@ -74,7 +72,6 @@ def send():
 
     some_number = random_integer(100)
 
-    #print("Publishing: {0} to {1} ... ".format(some_number, AIO_RANDOMS_FEED), end='')
     try:
         client.publish(topic=AIO_RANDOMS_FEED, msg=str(some_number))
     #    print("DONE")
@@ -84,12 +81,10 @@ def send():
        last_random_sent_ticks = time.ticks_ms()
 
     # Light sensor stuff here
-
+    # Original code: https://github.com/iot-lnu/pico-w/blob/main/sensor-examples/P23_LDR_Photo_Resistor
     light = ldr.read_u16()
     darkness = round(light / 65535 * 100, 2)
     percent_brightness = round(100 - light / 65535 * 100, 2)
-
-    #print("Publishing: {0} to {1} ... ".format(percent_brightness, AIO_LIGHT_FEED), end='')
 
     try:
         client.publish(topic=AIO_LIGHT_FEED, msg=(str(percent_brightness)))
@@ -98,7 +93,7 @@ def send():
         print(e)
     
     # Temperature sensor stuff here
-
+    # Original code: https://github.com/iot-lnu/pico-w/blob/main/sensor-examples/P5_DHT_11_DHT_22
     try:
         dhtSensor.measure()
         temperature = dhtSensor.temperature()
@@ -117,6 +112,8 @@ def send():
     except Exception as error:
         print("Exception occurred", error) 
 
+    # Jostick code below
+    # Original code: https://github.com/iot-lnu/pico-w/blob/main/sensor-examples/P16_Joystick
 def control_curtains():
     xAxisValue = xAxisPin.read_u16()
     yAxisValue = yAxisPin.read_u16()
@@ -133,6 +130,7 @@ def control_curtains():
     elif xAxisValue >= 60000:
         xAxisStatus = "north"
         action = "up"
+# At the moment only up and down are used. Below are code that can be used for left and right too.
 #    if yAxisValue <= 600:
 #        yAxisStatus = "east"
 #        action = "right"
@@ -144,8 +142,6 @@ def control_curtains():
         action = "button_pressed"
     
     if action != "":
-        #print("xAxis value is {} toward {}\nyAxis value is {} toward {}\nButton is {}\n".format(xAxisValue, xAxisStatus, yAxisValue, yAxisStatus, buttonStatus))
-        #print("Publishing: {0} to {1} ... ".format(action, AIO_CURTAINS_FEED), end='')
         try:
             client.publish(topic=AIO_CURTAINS_FEED, msg=str(action))
         #    print("DONE")
