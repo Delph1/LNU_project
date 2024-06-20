@@ -32,7 +32,6 @@ Andreas Galistel (ag22fi)
     - [Custom apex graph card code:](#custom-apex-graph-card-code)
   - [Todo later:](#todo-later)
 
-
 ## Project description
 
 Since the course only ran over five weeks during the summer I had limited time to complete the device. 
