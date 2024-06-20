@@ -32,6 +32,7 @@ Andreas Galistel (ag22fi)
       - [Gadget: Turn on lights](#gadget-turn-on-lights)
   - [Visualisation:](#visualisation)
     - [Custom apex graph card code:](#custom-apex-graph-card-code)
+  - [Finalizing the product](#finalizing-the-product)
   - [Todo later:](#todo-later)
 
 ## Project description
@@ -195,9 +196,6 @@ Make sure to reference the [official pin diagram for the Pico W](https://datashe
 |    20    |      26      | buttonPin    |
 |    19    |      25      | DHT-sensor   |
 
-
-![Picture of the gadget](images/PXL_20240618_121147509.MP~2.jpg?raw=true "The Gadget")
-*The gadget in its most basic form*
 
 ### Power consumption
 
@@ -1097,7 +1095,7 @@ influxdb:
       - counter.gadget_button_press
 ```
 
-Since Grafana connects to InfluxDB any issues with InfluxDB transfers over to Grafana. 
+Since Grafana connects to InfluxDB any issues with InfluxDB transfers over to Grafana. I experienced big delays with data appearing in InfluxDB from Home Assistant and overall it was a bit of a pain to work with sensor state changes to be honest, and not just regular measurements. 
 
 I finally decided that it would be less complex and I would achieve pretty much the same end result, if not better, by just creating a new dashboard in Home Assistant and use some custom graph cards. Specifically I used the [Apex Graph card](https://github.com/RomRider/apexcharts-card) by RomRider.
 
@@ -1132,6 +1130,15 @@ yaxis:
     max: 100
 
 ```
+
+## Finalizing the product
+
+As of now the gadget sits on my desk and keeps track of the lighting, temperature and humidity. If it gets too dark it turns on the lights for me and if I want to I can open and close the curtains by flicking the joystick. 
+
+I am quite happy with how it integrates into Home Assistant so well, but I am not done. I want to battery-power it. I want to encase it and I want to act relative to its position, which means it should have different functionality depending on which room in the house it sits in. 
+
+![Picture of the gadget](images/PXL_20240618_121147509.MP~2.jpg?raw=true "The Gadget")
+*The gadget in its most basic form*
 
 ## Todo later:
 
