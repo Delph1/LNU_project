@@ -13,7 +13,6 @@ import dht                    # For the DHT temp and humidity sensor
 # These need to be change to suit your environment
 RANDOMS_INTERVAL = 20000    # milliseconds
 last_random_sent_ticks = 0  # milliseconds
-led = Pin("LED", Pin.OUT)   # led pin initialization for Raspberry Pi Pico W
 
 # Adafruit IO (AIO) configuration modified to work with local Home Assistant Mosquitto Broker
 AIO_SERVER        = MQTT_BROKER
@@ -29,6 +28,9 @@ AIO_TEMP_FEED     = "homeassistant/gadget/temp"
 AIO_HUMIDITY_FEED = "homeassistant/gadget/humidity"
 
 # PIN setup below
+
+# led pin initialization for Raspberry Pico W
+led = Pin("LED", Pin.OUT)   
 
 # Joystick
 xAxisPin = ADC(Pin(28))

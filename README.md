@@ -1118,6 +1118,8 @@ Since Grafana connects to InfluxDB any issues with InfluxDB transfers over to Gr
 
 I finally decided that it would be less complex and I would achieve pretty much the same end result, if not better, by just creating a new dashboard in Home Assistant and use some custom graph cards. Specifically I used the [Apex Graph card](https://github.com/RomRider/apexcharts-card) by RomRider.
 
+Data is added to the database about every minute at the moment, which is unncesserily frequent when the device is put into production, but for development it is good to have swift updates of the sensor data.  
+
 Screenshots from different solutions I tried out to visualize the sensor data:
 
 ![InfluxDB Screenshot](images/Skärmbild%202024-06-19%20193205.png?raw=true "InfluxDB screenshot")
