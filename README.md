@@ -75,14 +75,16 @@ If you need to install an IDE and get up and running with the rest of the requir
    
 Setting up MQTT in Home Assistant is done in seconds. Copy my code above for the sensors, reload the yaml configuration and they should pop up right away in Home Assistant. For the regular sensors they should have values right away. The button sensor will update when you ... press the button. 
 
+You will then also know that an automation is never really perfect, but you will find the  trigger values that are close enough eventually. It depends on the room and the overall setting.
+
 2. Installing Home Assistant
    
 If you are not already running [Home Assistant](https://www.home-assistant.io/) that in itself can be a big leap and take anything from an hour to several days to get it set up just how you want it. The possibilities are limited by your imagination. It is however the most potent, secure and most of all private home automation platform available. It is well worth trying out. 
 
-You can install Home Assistant on a Raspberry Pi, but also an Intel Nuc or as a container in Proxmox or on a NAS. The core is the same, but you get slightly different feature on top of that. 
+You can install Home Assistant on a Raspberry Pi, but also an Intel Nuc or as a container in Proxmox or on a NAS. The core will be the same, but you get slightly different feature on top of that and it will be more complex to get addons running if you choose any other option than Raspberry Pi or NUC.
 The Raspberry Pi solution is the most complete one and easiest to get started with.   
 
-There are plug-n-play solutions too. Check out the installation guide on the official website: [Get started with Home Assistant](https://www.home-assistant.io/installation/)
+There are plug-n-play solutions too I should mention. Check out the installation guide on the official website to find out more: [Get started with Home Assistant](https://www.home-assistant.io/installation/)
 
 ### Hardware and software
 
@@ -1160,6 +1162,9 @@ I am quite happy with how it integrates into Home Assistant so well, but I am no
 
 ![Picture of the gadget](images/PXL_20240618_121147509.MP~2.jpg?raw=true "The Gadget")
 *The gadget in its most basic form*
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HUoaXdLpwDo?si=ooR0bLxaMSw50L8Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Todo later:
 
