@@ -1164,7 +1164,8 @@ I am quite happy with how it integrates into Home Assistant so well, but I am no
 *The gadget in its most basic form*
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HUoaXdLpwDo?si=ooR0bLxaMSw50L8Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+I've posted a video demonstration of the gadget on YouTube:
+[IoT gadget for Introduction to IoT course at Linneaus University summer of 2024](https://www.youtube.com/watch?v=HUoaXdLpwDo)
 
 ## Todo later:
 
